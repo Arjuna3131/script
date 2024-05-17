@@ -1,0 +1,83 @@
+sudo su - 
+sudo  yum install java-11* -y
+ sudo amazon-linux-extras install ansible2 -y
+ sudo yum install git -y
+sudo wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo yum upgrade
+# Add required dependencies for the jenkins package
+sudo yum install fontconfig java-17-openjdk
+sudo yum install jenkins
+sudo systemctl daemon-reload
+systemctl start jenkins
+git --version
+ansible --version
+jenkins --version
+docker --version
+
+docker installation
+{ 
+vi docker.sh
+
+sudo yum update -y
+sudo yum search docker
+sudo yum info docker
+sudo yum install -y docker
+sudo systemctl enable docker.service
+sudo systemctl start docker.service
+sudo systemctl status docker.service
+docker --version
+sudo yum install git -y
+sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+
+sh.docker.sh
+}
+
+ansible configuration
+{
+visudo 
+vi /etc/ansible/hosts
+(vi /etc/ansible/ansible.cfg)
+useradd ansible
+passwd ansible
+vi/etc/ssh/sshd_config
+service sshd restart
+su - ansible
+ssh-keygen
+cd .ssh
+ssh-copy-id ansible@private id
+cd ..
+ansible demo -m ping
+
+}
+
+tomcat installation
+{
+wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.87/bin/apache-tomcat-9.0.87.tar.gz.asc
+tar -zxvf apache-tomcat-9.0.87.tar.gz
+cd apache-tomcat-9.0.87
+cd conf
+vi tomacat-users.xml
+{
+<role rolename="manager-gui"/>
+<role rolename="manager-script"/>
+<role rolename="manager-jmx"/>
+<role rolename="manager-status"/>
+<user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+}
+cd ..
+cd webapps/manager/
+cd META-INF
+vi context.xml(comment the part)
+cd ../../..
+cd bin/
+sudo yum install java-11* -y
+sh startup.sh 
+
+
+}
+
+
